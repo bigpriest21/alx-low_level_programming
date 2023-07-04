@@ -3,7 +3,7 @@
 file { '/home/ubuntu/.ssh/config':
   ensure => present,
   owner  => 'ubuntu',
-  group  => 'ubuntu',
+  group  => '',
   mode   => '0600',
   content => "
     Host 100.26.236.23
