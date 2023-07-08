@@ -1,23 +1,20 @@
 #!/bin/bash
 
 # Update the system and install NGINX
-sudo apt update
-sudo apt install -y nginx
+apt update
+apt install -y nginx
 
 # Create a custom NGINX configuration file
-sudo tee /etc/nginx/sites-available/default <<EOF
+echo '
 server {
     listen 80 default_server;
     listen [::]:80 default_server;
 
-    root /var/www/html;
-    index index.html index.htm;
-
     location / {
-	echo -e "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n\r\nHello World!\n";
+        echo -e "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\nHello World!"
     }
 }
-EOF
+' > /etc/nginx/sites-available/default
 
-# Reload NGINX configuration
-sudo service nginx reload
+# Restart NGINX without using systemctl
+kill -s HUP $(pgrep nginx)
