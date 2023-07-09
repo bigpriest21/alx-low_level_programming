@@ -1,13 +1,13 @@
 #!/bin/bash
 
 # Update the system
-apt update
+sudo apt update
 
 # Install NGINX
-apt install -y nginx
+sudo apt install -y nginx
 
 # Configure NGINX
-cat <<EOF > /etc/nginx/sites-available/default
+cat <<EOF | sudo tee /etc/nginx/sites-available/default
 server {
     listen 80 default_server;
     listen [::]:80 default_server;
@@ -19,4 +19,7 @@ server {
 EOF
 
 # Restart NGINX
-service nginx restart
+sudo service nginx restart
+
+# Create index.html with "Hello World!"
+echo 'Hello World!\n' | sudo tee /var/www/html/index.html
